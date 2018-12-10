@@ -1,0 +1,18 @@
+#!/bin/ bash
+
+#Give permission to have excecute privilege to the script
+schmod +x hello_world.sh
+
+#Save the file with the urls in a variable named script
+script=$(cat urls.txt)
+
+#Check if the urls have been changed.
+while read -ru 4 LINE;
+ do
+   read -r REP <<(exec curl -IsS "$LINE" 2>&1)
+   if REP="Not Found"
+   then
+     echo "$LINE NOT OK"
+   else
+     echo "$LINE OK"
+done 4<"$1"

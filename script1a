@@ -1,14 +1,15 @@
 #!/bin/ bash
 
 #Give permission to have excecute privilege to the script
-schmod +x hello_world.sh
+schmod +x script1a.sh
 
 #Save the file with the urls in a variable named script
 script=$(cat urls.txt)
 
-#Check if the urls have been changed.
+#Check if the urls have been changed.The script with the urls is called urltext.
 while read -ru 4 LINE;
  do
+   sed '/#/d' urltext #remove the comments
    read -r REP <<(exec curl -IsS "$LINE" 2>&1)
    if REP="Not Found"
    then
